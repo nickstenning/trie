@@ -13,8 +13,6 @@ type Trie struct {
 // NewTrie makes a new empty Trie
 func NewTrie() *Trie {
 	return &Trie{
-		Leaf:     false,
-		Entry:    nil,
 		Children: make(trieChildren),
 	}
 }
