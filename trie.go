@@ -13,8 +13,8 @@ type Trie struct {
 // NewTrie makes a new empty Trie
 func NewTrie() *Trie {
 	return &Trie{
-		Leaf: false,
-		Entry: nil,
+		Leaf:     false,
+		Entry:    nil,
 		Children: make(trieChildren),
 	}
 }
@@ -70,7 +70,7 @@ func (t *Trie) Set(path []string, value interface{}) {
 
 // Del removes an element from the Trie. Returns a boolean indicating whether an
 // element was actually deleted.
-func (t *Trie) Del(path []string) (bool) {
+func (t *Trie) Del(path []string) bool {
 	if len(path) == 0 {
 		return t.delentry()
 	}
