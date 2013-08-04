@@ -23,7 +23,7 @@ func NewTrie() *Trie {
 // and returns the object if the path exists in the Trie, or nil and a status of
 // false. Example:
 //
-//     if res, ok := trie.Get([]string{"foo", "bar"), ok {
+//     if res, ok := trie.Get([]string{"foo", "bar"}), ok {
 //       fmt.Println("Value at /foo/bar was", res)
 //     }
 func (t *Trie) Get(path []string) (entry interface{}, ok bool) {
