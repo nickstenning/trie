@@ -70,10 +70,9 @@ func (t *Trie) GetLongestPrefix(path []string) (entry interface{}, ok bool) {
 	entry, ok = res.GetLongestPrefix(newpath)
 	if ok {
 		return entry, ok
-	} else {
-		// We haven't found a match yet, return this node
-		return t.getentry()
 	}
+	// We haven't found a match yet, return this node
+	return t.getentry()
 }
 
 // Set creates an element in the Trie
