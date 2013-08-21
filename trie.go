@@ -23,7 +23,7 @@ func NewTrie() *Trie {
 // and returns the object if the path exists in the Trie, or nil and a status of
 // false. Example:
 //
-//     if res, ok := trie.Get([]string{"foo", "bar"), ok {
+//     if res, ok := trie.Get([]string{"foo", "bar"}), ok {
 //       fmt.Println("Value at /foo/bar was", res)
 //     }
 func (t *Trie) Get(path []string) (entry interface{}, ok bool) {
@@ -41,6 +41,38 @@ func (t *Trie) Get(path []string) (entry interface{}, ok bool) {
 	}
 
 	return res.Get(newpath)
+}
+
+// GetLongestPrefix retrieves an element from the Trie
+//
+// Takes a path (which can be empty, to denote the root element of the Trie).
+// If a matching object exists, it is returned. Otherwise the object with the
+// longest matching prefix is returned. If nothing matches at all, nil and a
+// status of false is returned. Example:
+//
+//     if res, ok := trie.GetLongestPrefix([]string{"foo", "bar"}), ok {
+//       fmt.Println("Value at /foo/bar was", res)
+//     }
+func (t *Trie) GetLongestPrefix(path []string) (entry interface{}, ok bool) {
+	if len(path) == 0 {
+		return t.getentry()
+	}
+
+	key := path[0]
+	newpath := path[1:]
+
+	res, ok := t.Children[key]
+	if !ok {
+		// Path doesn't exist: return this node as possible best match
+		return t.getentry()
+	}
+
+	entry, ok = res.GetLongestPrefix(newpath)
+	if ok {
+		return entry, ok
+	}
+	// We haven't found a match yet, return this node
+	return t.getentry()
 }
 
 // Set creates an element in the Trie
